@@ -1,0 +1,16 @@
+#! /bin/bash
+yum install -y git
+yum install -y nodejs
+npm install -g @angular/cli
+yum install -y httpd.x86_64
+cd /home/ec2-user
+su ec2-user -c  "git clone "
+cd MovingCompany
+npm install
+ng build
+mv dist  /var/www/html
+line_old='/var/www/html'
+line_new='/var/www/html/dist/sham-food'
+sudo sed -i "s%$line_old%$line_new%g" /etc/httpd/conf/httpd.conf
+sudo systemctl restart httpd
+
