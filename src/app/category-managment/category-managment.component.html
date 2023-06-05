@@ -1,0 +1,26 @@
+<div class="row pt-5">
+    <div class="center" >
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>  <br>
+    <br>
+  <h1>Category Infomration System</h1>
+
+<h2>Add a category</h2>
+<form [formGroup]="cateogry">
+
+  <label for="categoryNameEng">Category Name: English</label><br>
+  <input type="text" id="categoryNameEng" formControlName="categoryNameEng"><br>
+
+  <label for="categoryNameDan">Category Name: Danish</label><br>
+  <input type="text" id="categoryNameDan" formControlName="categoryNameDan"><br>
+
+  <label for="categoryNameAr">Category Name: Arabic</label><br>
+  <input type="text" id="categoryNameAr" formControlName="categoryNameAr"><br>
+
+  <input type="submit" value="Submit" (click) = saveCategory()>
+</form>
+</div>

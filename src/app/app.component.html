@@ -1,0 +1,11 @@
+
+<app-site-header [ngClass]="{'mobile': responsiveService.deviceMobile(), 
+'web': responsiveService.deviceDesktop(), 
+'tablet': responsiveService.deviceTablet()}"></app-site-header>
+
+
+<router-outlet [ngClass]="{'mobile': responsiveService.deviceMobile(), 
+'web': responsiveService.deviceDesktop(), 
+'tablet': responsiveService.deviceTablet()}"> </router-outlet>
+
+

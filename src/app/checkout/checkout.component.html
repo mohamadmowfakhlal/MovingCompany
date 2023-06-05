@@ -1,0 +1,282 @@
+<table>
+  <tr>
+    <td>
+      <div [dir]="pageDirection">
+        <h1> {{OrderSummary}}</h1>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="Product">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center !important;">
+              {{product}}
+            </th>
+            <td mat-cell *matCellDef="let element" style="text-align: center !important;">
+              <table>
+                <tr>
+                  <td>
+                    <img src="https://shamfoodstore.s3.eu-central-1.amazonaws.com/{{element.imageName}}" width="120"
+                      height="120">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    {{element.productName}}
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td mat-footer-cell *matFooterCellDef>
+              <span class="font-bold"> </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center !important;">
+              <p>{{quantity}}</p>
+            </th>
+            <td mat-cell *matCellDef="let element" style="text-align: center !important;">
+              <table>
+                <tr>
+                  <td>
+                    <button mat-icon-button (click)="onRemoveQuantity(element)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>
+                    <h2>{{element.quantity}}</h2>
+
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>
+                    <button mat-icon-button (click)="onAddQuantity(element)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </td>
+
+                </tr>
+              </table>
+
+            </td>
+            <td mat-footer-cell *matFooterCellDef>
+              <span class="font-bold"> </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center !important;">
+              <p>{{price}}</p>
+            </th>
+            <td mat-cell *matCellDef="let element" style="text-align: center !important;"> {{element.price}} </td>
+            <td mat-footer-cell *matFooterCellDef>
+              <span class="font-bold"> </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>
+              <p>{{totalPrice}}</p>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{(element.price * element.quantity)}} </td>
+            <td mat-footer-cell *matFooterCellDef>
+              <span class="font-bold">{{totalPrice}}:{{total}} DKK</span>
+            </td>
+
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              <button mat-raised-button color="warn" (click)=onClearCart() class="float">
+                {{clearAll}}
+              </button>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-min-fab color="warn" (click)="removeProductOrder(element)"
+                class="float-right"><mat-icon>close</mat-icon></button>
+            </td>
+            <td mat-footer-cell *matFooterCellDef>
+              <span class="font-bold"> </span>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+        </table>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div [dir]="pageDirection">
+
+        <h2 class="mb-0">{{askToEnterInofmrationMessage}} </h2>
+      </div>
+
+    </td>
+  </tr>
+  <tr>
+    <td [dir]="pageDirection">
+      <form [formGroup]="userInformation" #userInfo="ngForm">
+        <table style="width: 70%;" [dir]="pageDirection">
+          <tr>
+            <td>{{fullName}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="fullName">
+              <div *ngIf="f['fullName'].invalid && (f['fullName'].dirty || f['fullName'].touched)" class="alert">
+
+                <small *ngIf="f['fullName'].errors?.['required']">
+                  {{fullName}} is required.
+                </small>
+
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>{{email}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="email">
+              <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="alert">
+
+                <small *ngIf="f['email'].errors?.['required']">
+                  {{email}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>{{phoneNumber}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="phoneNumber">
+              <div *ngIf="f['phoneNumber'].invalid && (f['phoneNumber'].dirty || f['phoneNumber'].touched)"
+                class="alert">
+
+                <small *ngIf="f['phoneNumber'].errors?.['required']">
+                  {{phoneNumber}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              {{shippingAddress}}
+            </td>
+          </tr>
+          <tr>
+            <td>{{city}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="city">
+              <div *ngIf="f['city'].invalid && (f['city'].dirty || f['city'].touched)" class="alert">
+
+                <small *ngIf="f['city'].errors?.['required']">
+                  {{city}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>{{postNumber}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="postCode">
+              <div *ngIf="f['postCode'].invalid && (f['postCode'].dirty || f['postCode'].touched)" class="alert">
+
+                <small *ngIf="f['postCode'].errors?.['required']">
+                  {{postNumber}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>{{streetName}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="streetName">
+              <div *ngIf="f['streetName'].invalid && (f['streetName'].dirty || f['streetName'].touched)" class="alert">
+
+                <small *ngIf="f['streetName'].errors?.['required']">
+                  {{streetName}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>{{houseNumber}}:</td>
+            <td>
+              <input type="text" required="true" formControlName="houseNumber">
+              <div *ngIf="f['houseNumber'].invalid && (f['houseNumber'].dirty || f['houseNumber'].touched)"
+                class="alert">
+
+                <small *ngIf="f['houseNumber'].errors?.['required']">
+                  {{houseNumber}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <!--
+                            <td>{{shippingMethod}}</td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type="radio" value="Bringyourself" formControlName="shipping" (change)="shippingOption($event)">
+                                            {{shippingMethodByyourSelf}}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <input type="radio" value="GLSPackageShop" formControlName="shipping" (change)="shippingOption($event)">
+                                            {{shippingMethodGLSPakkeShop}}</td>
+
+
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                          <input type="radio" value="GLSHome" formControlName="shipping" (change)="shippingOption($event)">
+                                          {{shippingMethodGLSHome}}</td>
+
+
+                                  </tr>
+
+                                </table>
+                            </td>
+                             -->
+          </tr>
+          <tr>
+            <td>{{pickupDate}}</td>
+            <td>
+              <input type="date" required="true" formControlName="deliveryDate">
+              <div *ngIf="f['deliveryDate'].invalid && (f['deliveryDate'].dirty || f['deliveryDate'].touched)"
+                class="alert">
+
+                <small *ngIf="f['deliveryDate'].errors?.['required']">
+                  {{pickupDate}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>{{notes}}</td>
+            <td>
+              <input type="text" required="true" formControlName="note">
+              <div *ngIf="f['note'].invalid && (f['note'].dirty || f['note'].touched)" class="alert">
+
+                <small *ngIf="f['note'].errors?.['required']">
+                  {{notes}} is required.
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <button type="submit" (click)=onCheckout() [disabled]="userInfo.form.invalid">{{checkout}}</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+
+  </tr>
+</table>

@@ -1,0 +1,90 @@
+<table class="mainTable" [dir]="pageDirection">
+    <tr>
+        <td>
+            <div class="topnav">
+                <table>
+                    <tr>
+                        <td *ngFor="let category of prodcutsCategory">
+                            <input type="hidden" #categoryId value="{{category.categoryId}}">
+                            <a (click)="getProductsForCategories(categoryId.value)">
+                                <ng-container *ngIf="selectedLanguage=='English'">
+                                    {{category.categoryNameEng}}
+                                </ng-container>
+                                <ng-container *ngIf="selectedLanguage=='Danish'">
+                                    {{category.categoryNameDan}}
+                                </ng-container>
+                                <ng-container *ngIf="selectedLanguage=='Arabic'">
+                                    {{category.categoryNameAr}}
+                                </ng-container>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table [dir]="pageDirection">
+                <tr>
+                    <td>
+                        <h1 class="popularProducts">
+                            <a (click)="getProducts()">
+                                {{popularProducts}}
+                            </a>
+                        </h1>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr width="100%">
+        <td>
+            <div>
+                <ng-container *ngIf="mobileButtonVisible">
+                    <button class="ButtonForphone" (click)="Basket()">Checkout</button>
+                </ng-container>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table id="" class="table">
+                <tbody>
+                    <tr *ngFor="let row of buildProductsTable(productsList)">
+                        <td *ngFor="let product of row" style="padding: 40px">
+                            <mat-card>
+                                <p>
+                                    <ng-container *ngIf="selectedLanguage=='English'">
+                                        {{product.nameEng}}
+                                    </ng-container>
+                                    <ng-container *ngIf="selectedLanguage=='Danish'">
+                                        {{product.nameDan}}
+                                    </ng-container>
+                                    <ng-container *ngIf="selectedLanguage=='Arabic'">
+                                        {{product.nameAr}}
+                                    </ng-container>
+                                </p>
+                                <br>
+                                <p>
+                                    {{product.description}}
+                                </p>
+                                <img src="https://shamfoodstore.s3.eu-central-1.amazonaws.com/{{product.imageName}}"
+                                    width="250" height="250">
+                                <br>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <p> {{product.price}} DKK.</p>
+                                        </td>
+                                        <td>
+                                            <button (click)="onAddToCard(product)" type="submit" class="basket">
+                                                <mat-icon>shopping_cart</mat-icon></button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </mat-card>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>

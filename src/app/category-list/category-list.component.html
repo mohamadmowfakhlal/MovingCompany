@@ -1,0 +1,25 @@
+<table border="2" id="orders">
+    <tr>
+        <th>
+            category Number
+        </th>
+
+        <th>
+            category Name English
+        </th>
+        <th>
+            category Name Danish
+        </th>
+        <th>
+            category Name Arabic
+        </th>
+    </tr>
+
+
+    <tr *ngFor="let row of prodcutsCategory">
+        <td>{{row.categoryId}}</td>
+        <td>{{row.categoryNameEng}}</td>
+        <td>{{row.categoryNameDan}}</td>
+        <td>{{row.categoryNameAr}}</td>
+    </tr>
+</table>

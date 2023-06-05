@@ -1,0 +1,38 @@
+
+
+  <div class="row pt-5">
+    <div class="center" >
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br> 
+     <br>
+    <br>
+  <h1>Product Infomration System</h1>
+
+    <h2>Add a product</h2>
+    <form [formGroup]="product">
+      <label for="Category">Choose a Food Category:</label><br>
+      <select name="Category" formControlName="categoryId" id="Category">
+        <option *ngFor="let category of prodcutsCategory" value="{{category.categoryId}}">{{category.categoryNameEng}}</option>
+      </select><br>
+      <label for="nameEng">Product Name English:</label><br>
+      <input type="text" id="nameEng" formControlName="nameEng"><br>
+      <label for="nameDan">Product Name Danish:</label><br>
+      <input type="text" id="nameDan" formControlName="nameDan"><br>
+      <label for="nameAr">Product Name Arabic:</label><br>
+      <input type="text" id="nameAr" formControlName="nameAr"><br>
+      <label for="description">Description:</label><br>
+      <textarea rows="4" cols="50" id="description"  formControlName="description">
+      </textarea><br><br>    
+      <label for="price">Price:</label><br>
+      <input type="number" id="price" formControlName="price"><br><br>    
+      <br><br>  
+      <app-upload-image></app-upload-image>
+      <input type="submit" value="submit" (click) = saveProduct()>
+    </form>
+  </div>
+
+  </div>

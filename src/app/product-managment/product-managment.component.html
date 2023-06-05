@@ -1,0 +1,34 @@
+<table border="2">
+    <tr>
+        <th>
+            Number
+        </th>
+
+        <th>
+             Name in English
+        </th>
+        <th>
+            Name in Danish
+       </th>
+       <th>
+        Name in Arabic
+        </th>
+        <th>
+             price
+        </th>
+        <th>
+            description
+        </th>
+    </tr>
+
+
+    <tr *ngFor="let row of productsList">
+        <td>{{row.productId}}</td>
+        <td>{{row.nameEng}}</td>
+        <td>{{row.nameDan}}</td>
+        <td>{{row.nameAr}}</td>
+
+        <td>{{row.price}}</td>
+        <td>{{row.description}}</td>
+    </tr>
+</table>

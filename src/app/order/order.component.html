@@ -1,0 +1,91 @@
+<div class="row pt-5">
+    <div class="col-md-5 mx-auto">
+    <div class="card rounded-0" >
+    <br>
+    <br>
+    <br>
+    <div align="center">
+        <form action="">
+            <label for="username">Search for order by Delivery Date:</label><br>
+            <input type="date" id="deliveryDate" #deliveryDate name="deliveryDate"><br>
+            <input type="button" value="search" (click)="searchOrder(deliveryDate.value)">
+            <input type="submit" value="add product" (click)="productMagament()">
+            <input type="submit" value="add category" (click)="cateogryMagament()">
+
+        </form>
+    </div>
+
+    <h1>Orders for today</h1>
+<table border="2" id="orders">
+    <tr>
+        <th>
+            order Number
+        </th>
+        <th>
+            customer phoneNumber
+        </th>
+        
+        <th>
+            customer Name
+        </th>
+        <th>
+            Is paid
+        </th>
+        <th>
+            DeliveryDate
+        </th>
+        <th>
+            Cutomer Address
+        </th>
+        <th>
+            Products to deivered
+        </th>
+        <th>
+            notes
+        </th>
+    </tr>
+
+
+    <tr *ngFor="let row of ordersList">
+        <td>{{row.orderId}}</td>
+        <td>{{row.phoneNumber}}</td>
+        <td>{{row.fullName}}</td>
+        <td>
+            <div *ngIf="row.paid; else notPaid">
+                 paid
+            </div></td>
+            <ng-template #notPaid>
+                not paid
+              </ng-template>
+              <td>{{row.deliveryDate}}</td>
+              <td>
+                {{row.city}} {{row.streetName}}  {{row.houseNumber}}
+            </td>
+       <td>
+            <table>
+                <tr *ngFor="let pro of getProductsForOrder(row.orderId)">
+                    <td>{{pro.nameEng}}</td>
+                    <td>{{pro.quantity}}</td>
+                </tr>
+                
+            </table>
+        </td>
+        <td>{{row.note}}</td>
+
+
+
+    </tr>
+</table>
+
+    </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

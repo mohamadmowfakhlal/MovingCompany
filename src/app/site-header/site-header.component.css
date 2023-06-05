@@ -1,0 +1,20 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .toolbar {
+    max-height: 50px;
+    min-height: 30px;
+  }
+  button {
+    background-color: #55BE6D;
+    padding: 14px;
+    margin: 8px 5px;
+    border: none;
+    cursor: pointer;
+    height: 40px;
+    width: 55px;
+    color: white;
+  }
+
+
